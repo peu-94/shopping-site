@@ -1,7 +1,10 @@
 import React from "react";
 import { Search, CircleUserRound, ShoppingCart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Category from "./Category";
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-row justify-center text-center w-full px-10 py-10 shadow-xl">
       <div className="flex-1">
@@ -9,11 +12,21 @@ function Header() {
           UrbanBazarrr - A New trend of shopping
         </h1>
       </div>
-      <div className="flex-1 flex justify-center gap-3">
-        <h2>Home</h2>
-        <h2>Collections</h2>
-        <h2>About Us</h2>
-        <h2>Contact</h2>
+      <div className="flex-1 flex justify-center gap-5">
+        <div
+          className="cursor-pointer hover font-semibold"
+          onClick={() => navigate("/")}
+        >
+          Home
+        </div>
+        {/* <h2>Collections</h2> */}
+        <Category />
+        <div
+          className="cursor-pointer hover font-semibold"
+          onClick={() => navigate("/AboutUs")}
+        >
+          About Us
+        </div>
       </div>
       <div className="flex-1 flex justify-end gap-4">
         <div className="relative hidden md:block">
