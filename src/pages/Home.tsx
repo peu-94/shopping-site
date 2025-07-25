@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -30,6 +31,8 @@ const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [bannerIndex, setBannerIndex] = useState(0);
+
+  // Rotate sale banner every 3.5s
   useEffect(() => {
     const interval = setInterval(() => {
       setBannerIndex((prev) => (prev + 1) % saleBanners.length);
@@ -37,6 +40,7 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Fetch product list
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -55,6 +59,7 @@ const Home = () => {
 
   return (
     <div className="px-4 py-10 max-w-7xl mx-auto">
+      {/* Banner */}
       <div
         key={bannerIndex}
         className={`bg-gradient-to-r ${saleBanners[bannerIndex].bg} text-white rounded-lg p-6 text-center mb-10 shadow-md transition-all duration-700 ease-in-out`}
@@ -70,6 +75,7 @@ const Home = () => {
         </button>
       </div>
 
+      {/* Product Grid */}
       <h1 className="text-3xl font-bold mb-6">Featured Products</h1>
 
       {loading ? (
@@ -77,9 +83,10 @@ const Home = () => {
       ) : (
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
-            <div
+            <Link
+              to={`/product/${product.id}`}
               key={product.id}
-              className="border rounded-lg p-4 shadow hover:shadow-md transition"
+              className="border rounded-lg p-4 shadow hover:shadow-md transition cursor-pointer"
             >
               <img
                 src={product.image}
@@ -93,7 +100,7 @@ const Home = () => {
               <p className="font-bold text-blue-600">
                 ${product.price.toFixed(2)}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       )}
