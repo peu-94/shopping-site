@@ -2,11 +2,11 @@ import React from "react";
 import { Search, CircleUserRound, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Category from "./Category";
-import { useCart } from "../context/CartContext"; // ✅ import context
+import { useCart } from "../context/CartContext";
 
 function Header() {
   const navigate = useNavigate();
-  const { cartItems } = useCart(); // ✅ get cart from context
+  const { cartItems } = useCart();
 
   return (
     <div className="flex flex-row justify-center text-center w-full px-10 py-10 shadow-xl">
@@ -49,8 +49,6 @@ function Header() {
         </button>
 
         <CircleUserRound />
-
-        {/* ✅ Cart Icon with Badge */}
         <div
           className="relative cursor-pointer"
           onClick={() => navigate("/cart")}

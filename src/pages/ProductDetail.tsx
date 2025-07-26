@@ -35,12 +35,19 @@ function ProductDetail() {
   const moveToCart = () => {
     if (!product) return;
 
-    const existing = JSON.parse(localStorage.getItem("cart") || "[]");
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-    const updated = [...existing, product];
+    const existingIndex = existingCart.findIndex(
+      (item: any) => item.id === product.id
+    );
 
-    localStorage.setItem("cart", JSON.stringify(updated));
-    addToCart(product);
+    if (existingIndex > -1) {
+      existingCart[existingIndex].quantity += 1;
+    } else {
+      existingCart.push({ ...product, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(existingCart));
     navigate("/cart");
   };
 
